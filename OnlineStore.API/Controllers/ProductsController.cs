@@ -16,10 +16,26 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAllProducts()
+    {
+        var products = await _productService.GetAllProductsAsync();
+        return Ok(products);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProductById(int id)
+    {
+        var product = await _productService.GetProductByIdAsync(id);
+        if (product == null)
+            return NotFound(new { message = "პროდუქტი ვერ მოიძებნა!" });
+
+        return Ok(product);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto dto)
     {
-
         var product = new Product
         {
             Name = dto.Name,
@@ -30,15 +46,35 @@ public class ProductsController : ControllerBase
         };
 
         await _productService.CreateProductAsync(product);
-
         return Ok(new { message = "პროდუქტი წარმატებით დაემატა!", product });
     }
-    
-    [HttpGet]
-    public async Task<IActionResult> GetAllProducts()
-    {
-        var products = await _productService.GetAllProductsAsync();
 
-        return Ok(products);
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProduct(int id, [FromBody] CreateProductDto dto)
+    {
+        var updatedProduct = new Product
+        {
+            Name = dto.Name,
+            Description = dto.Description ?? string.Empty,
+            Price = dto.Price,
+            StockQuantity = dto.StockQuantity,
+            CategoryId = dto.CategoryId
+        };
+
+        var result = await _productService.UpdateProductAsync(id, updatedProduct);
+        if (!result)
+            return NotFound(new { message = "პროდუქტი ვერ მოიძებნა!" });
+
+        return Ok(new { message = "პროდუქტი წარმატებით განახლდა!" });
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        var result = await _productService.DeleteProductAsync(id);
+        if (!result)
+            return NotFound(new { message = "პროდუქტი ვერ მოიძებნა!" });
+
+        return Ok(new { message = "პროდუქტი წარმატებით წაიშალა!" });
     }
 }
