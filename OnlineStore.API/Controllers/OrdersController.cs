@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OnlineStore.API.DTOs;
+using OnlineStore.API.Requests;
 using OnlineStore.Core.Entities;
 using OnlineStore.Core.Interfaces;
 using OnlineStore.Infrastructure.Data;
@@ -38,7 +38,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto dto)
+    public async Task<IActionResult> CreateOrder([FromBody] OrderCreate dto)
     {
         if (dto.CustomerId <= 0)
             return BadRequest(new { message = "CustomerId სავალდებულოა." });

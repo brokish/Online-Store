@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineStore.API.DTOs;
+using OnlineStore.API.Requests;
 using OnlineStore.Core.Entities;
 using OnlineStore.Core.Interfaces;
 
@@ -34,7 +34,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto dto)
+    public async Task<IActionResult> CreateProduct([FromBody] ProductCreate dto)
     {
         var product = new Product
         {
@@ -50,7 +50,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateProduct(int id, [FromBody] CreateProductDto dto)
+    public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductCreate dto)
     {
         var updatedProduct = new Product
         {

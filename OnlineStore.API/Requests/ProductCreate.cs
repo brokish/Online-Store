@@ -1,6 +1,6 @@
-﻿namespace OnlineStore.API.DTOs;
+namespace OnlineStore.API.Requests;
 
-public class CreateProductDto
+public class ProductCreate
 {
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }

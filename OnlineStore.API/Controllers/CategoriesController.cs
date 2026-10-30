@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.API.DTOs;
+using OnlineStore.API.Requests;
 using OnlineStore.Core.Entities;
 using OnlineStore.Core.Interfaces;
 
@@ -34,7 +34,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto dto)
+    public async Task<IActionResult> CreateCategory([FromBody] CategoryCreate dto)
     {
         if (string.IsNullOrWhiteSpace(dto.Name))
             return BadRequest(new { message = "Category name is required." });

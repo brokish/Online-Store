@@ -1,6 +1,6 @@
-namespace OnlineStore.API.DTOs;
+namespace OnlineStore.API.Requests;
 
-public class CreateCustomerDto
+public class CustomerCreate
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;

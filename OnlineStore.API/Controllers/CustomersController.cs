@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.API.DTOs;
+using OnlineStore.API.Requests;
 using OnlineStore.Core.Entities;
 using OnlineStore.Core.Interfaces;
 
@@ -34,7 +34,7 @@ public class CustomersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDto dto)
+    public async Task<IActionResult> CreateCustomer([FromBody] CustomerCreate dto)
     {
         if (string.IsNullOrWhiteSpace(dto.FirstName) || string.IsNullOrWhiteSpace(dto.LastName))
             return BadRequest(new { message = "FirstName და LastName სავალდებულოა." });
